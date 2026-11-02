@@ -4,6 +4,15 @@ Projeto que demonstra a implementação de uma arquitetura hexagonal em microsse
 
 ---
 
+## Tecnologias
+
+1. Java 17+
+2. Spring Boot
+3. Mockito & JUnit
+4. MongoDB
+5. Docker & Docker-Compose
+6. Kafka
+
 ## 📋 Índice
 
 1. [Visão Geral](#visão-geral)
@@ -35,7 +44,7 @@ Este projeto implementa uma **arquitetura hexagonal** com dois microsserviços q
 ├─────────────────────────────────────────────┤
 │  MongoDB (Persistência de Dados)            │
 │  Kafka + Zookeeper (Mensageria)             │
-│  FeignClient (API HTTP - ViaCEP)            │
+│  (API HTTP - ViaCEP)                        │
 │  Docker + Docker Compose (Orquestração)     │
 └─────────────────────────────────────────────┘
 ```
@@ -55,7 +64,7 @@ ArquiteturaHexagonal/
 │   │       │   │   └── consumer/       # Kafka Consumer
 │   │       │   └── out/                # Saída (Repository, HTTP, Kafka Producer)
 │   │       │       ├── repository/     # MongoDB
-│   │       │       ├── client/         # FeignClient (ViaCEP)
+│   │       │       ├── client/         # Client (ViaCEP)
 │   │       │       └── SendCpfValidationAdapter
 │   │       ├── application/            # Camada de Aplicação
 │   │       │   ├── core/
@@ -130,7 +139,7 @@ A arquitetura hexagonal (também chamada de Portas e Adaptadores) segue este pad
 ```
                         ┌─────────────────────────────────┐
                         │  CAMADA DE APRESENTAÇÃO         │
-                        │  (HTTP Controllers, CLI)         │
+                        │  (HTTP Controllers, CLI)        │
                         └────────────┬────────────────────┘
                                      │
                         ┌────────────▼────────────┐
@@ -138,8 +147,8 @@ A arquitetura hexagonal (também chamada de Portas e Adaptadores) segue este pad
                         │  (Interfaces de Entrada)│
                         └────────────┬────────────┘
                                      │
-        ┌────────────────────────────┼────────────────────────────┐
-        │                            │                            │
+        ┌────────────────────────────┼───────────────────────────┐
+        │                            │                           │
     ┌───▼────────┐         ┌─────────▼────────┐         ┌────────▼──┐
     │ Controllers│         │  CORE DOMAIN     │         │ Consumers │
     │  (HTTP)    │         │  (UseCase Logic) │         │ (Kafka)   │
@@ -151,11 +160,11 @@ A arquitetura hexagonal (também chamada de Portas e Adaptadores) segue este pad
                         │  (Interfaces de Saída)  │
                         └────────────┬────────────┘
                                      │
-        ┌────────────────────────────┼────────────────────────────┐
-        │                            │                            │
+        ┌────────────────────────────┼───────────────────────────┐
+        │                            │                           │
     ┌───▼────────┐         ┌─────────▼────────┐         ┌────────▼──┐
     │ Repository │         │  HTTP Clients    │         │ Producers │
-    │ (MongoDB)  │         │  (FeignClient)   │         │ (Kafka)   │
+    │ (MongoDB)  │         │                  │         │ (Kafka)   │
     │            │         │                  │         │           │
     └────────────┘         └──────────────────┘         └───────────┘
 
@@ -483,6 +492,18 @@ chmod +x create-topics.sh
 ./create-topics.sh
 ```
 
+## Subir Imagem Docker Com Testes Unitários Testados:
+
+- Comando para permitir o script:
+```bash
+chmod +x build-tag-push.sh
+```
+
+- Comando para executar os testes unitários e subir a imagem para o Docker Hub:
+```bash
+./build-tag-push v.1.1.1
+```
+
 ---
 
 ## 📡 Monitorar Mensagens Kafka
@@ -775,7 +796,7 @@ docker system prune -a
 
 ## 👥 Contribuidores
 
-- Maiki (Desenvolvimento)
+- Maike (Desenvolvimento)
 
 ---
 
